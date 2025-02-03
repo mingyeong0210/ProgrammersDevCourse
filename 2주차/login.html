@@ -8,15 +8,20 @@
     <body>
         <h1>Login</h1>
         <form>
-            ID : <input class="login_inputs" type="text"> <!-- 기본값 -->
+            ID : <input id="txt_id" class="login_inputs" type="text"> <!-- 기본값 -->
             <br>
             PW : <input class="login_inputs" type="password"> <!-- 무엇을 적는지 보이지 않음 -->
             <br>
-            <input id="btn_login" type="button" value="login" onclick="myFunction()">
+            <input id="btn_login" type="button" value="login" onclick="popId()">
         </form>
 
         <!-- 내부 스크립트 -->
         <script>
+            // ID란에 입력된 값을 팝업창에 띄우기 
+            function popId() {
+                alert(document.getElementById('txt_id').value);
+            }
+
             // 나만의 함수 만들고, 버튼 클릭하면 호출하기
             function myFunction() {
                 alert('1');
