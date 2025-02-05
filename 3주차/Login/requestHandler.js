@@ -1,5 +1,5 @@
 // 이 파일은 라우터가 루트를 분배해서 각 경로를 알려주면 해당 경로에서 해야할 일을 알려주는 역할
-const mariadb = require('../database/connect/mariadb');
+const mariadb = require('../TennisMarket/database/connect/mariadb');
 
 function main(response) {
     console.log('main');
