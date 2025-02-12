@@ -8,38 +8,6 @@ app.get('/', function (req, res) {
   res.send('Hello World') // 응답 설정 
 })
 
-// API 요청 : GET + "http://localhost:3000/test"
-// 응답 "TEST SUCCESS"
-app.get('/test', function(req, res) {
-    res.send('TEST SUCCESS')
-})
-
-// API 요청 : GET + "http://localhost:3000/test/1"
-// 응답 "One!!"
-app.get('/test/1', function(req, res) {
-    res.send('One!!')
-})
-
-// API 요청 : GET + /hello /bye /nicetomeetyou
-// 응답 : hello bye nicetomeetyou
-app.get('/hello', function(req, res) {
-    res.json({
-        say : '안녕하세요'
-    })
-})
-
-app.get('/bye', function(req, res) {
-    res.json({
-        say : '안녕히 가세요'
-    })
-})
-
-app.get('/nicetomeetyou', function(req, res) {
-    res.json({
-        say : '만나서 반갑습니다'
-    })
-})
-
 let nodjsBook = {
 	title : "Node.js를 공부해보자",
 	price : 20000,
