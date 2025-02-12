@@ -23,7 +23,9 @@ app.get('/test/1', function(req, res) {
 // API 요청 : GET + /hello /bye /nicetomeetyou
 // 응답 : hello bye nicetomeetyou
 app.get('/hello', function(req, res) {
-    res.send('안녕하세요')
+    res.send({
+        say : '안녕하세요'
+    })
 })
 
 app.get('/bye', function(req, res) {
