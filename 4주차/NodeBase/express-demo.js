@@ -23,22 +23,31 @@ app.get('/test/1', function(req, res) {
 // API 요청 : GET + /hello /bye /nicetomeetyou
 // 응답 : hello bye nicetomeetyou
 app.get('/hello', function(req, res) {
-    res.send({
+    res.json({
         say : '안녕하세요'
     })
 })
 
 app.get('/bye', function(req, res) {
-    res.send('안녕히 가세요')
+    res.json({
+        say : '안녕히 가세요'
+    })
 })
 
 app.get('/nicetomeetyou', function(req, res) {
-    res.send('만나서 반갑습니다')
+    res.json({
+        say : '만나서 반갑습니다'
+    })
 })
 
+let nodjsBook = {
+	title : "Node.js를 공부해보자",
+	price : 20000,
+	description : " 이 책 좋음 왜? 김송아 지음"
+}
+
 app.get('/products/1', function(req, res) {
-    res.send('Node.js를 배워보자 (책)')
-    res.send(2000)
+    res.json(nodjsBook)
 })
 
 app.listen(3000) // 포트번호를 3000으로 설정 
