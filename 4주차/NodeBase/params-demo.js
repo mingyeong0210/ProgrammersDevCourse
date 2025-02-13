@@ -33,13 +33,18 @@ app.get('/products/:n', function(req, res) {
 // 영상 주소 : https://www.youtube.com/watch?v=nwKyTzC7THI
 // 타임라인 주소 : https://www.youtube.com/watch?v=nwKyTzC7THI&t=290s
 app.get('/watch', function(req, res) {
-    const q = req.query
-    console.log(q.v)
-    console.log(q.t)
+    // const q = req.query
+    // console.log(q.v)
+    // console.log(q.t)
+
+    // JS객체(JSON)의 비구조화 
+    const {v, t} = req.query // 변수이름은 반드시 동일하게 설정해줘야 함
+    console.log(v)
+    console.log(t)
 
     res.json({
-        video : q.v,
-        timeline :  q.t
+        video : v,
+        timeline :  t
     })
 })
 
