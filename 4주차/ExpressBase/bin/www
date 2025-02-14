@@ -4,22 +4,22 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('expressbase:server');
-var http = require('http');
+var app = require('../app'); // app.js 모듈을 가져옴 
+var debug = require('debug')('expressbase:server'); // debug 모듈은 콘솔 창에 어떤 부분이 돌아가고 있는 지 로그를 찍어줌 
+var http = require('http'); // http 모듈을 가져옴 
 
 /**
  * Get port from environment and store in Express.
  */
 
 var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+app.set('port', port); // 포트 기본값은 3000이지만 다른 값으로 설정하면 그걸로 설정하겠다 
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var server = http.createServer(app); // express가 자동으로 create server를 해주고 있었음 
 
 /**
  * Listen on provided port, on all network interfaces.

@@ -7,12 +7,13 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var app = express();
+var app = express(); // express 모듈 불러다 app에 담아줌 
 
-// view engine setup
+// view engine setup // 추가 세팅 // 우린 데이터를 만지기 때문에 건들 일이 없음 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+// http를 제외한 다른 모듈들을 미들웨어라고 함 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -38,4 +39,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+module.exports = app; // 다른 곳에서 사용할 수 있도록 모듈화 
