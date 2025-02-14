@@ -29,13 +29,46 @@ app.get('/:id', function(req, res) {
 })
 
 let db = new Map()
-db.set(1, "NoteBook") // 키로 벨류를 찾을 수 있는 한 쌍을 저장 
-db.set(2, "Cup")
-db.set(3, "Chair")
-db.set("1", "MG") 
+// String만 담은 Map
+// db.set(1, "NoteBook") // 키로 벨류를 찾을 수 있는 한 쌍을 저장 
+// db.set(2, "Cup")
+// db.set(3, "Chair")
+// db.set(4, "Poster")
+// db.set("1", "MG") 
 
 // console.log(db) // Map(3) { 1 => 'NoteBook', 2 => 'Cup', 3 => 'Chair' }
 // console.log(db.get(1)) // NoteBook
 // console.log(db.get("1")) // MG // 숫자와 문자를 구분함 
 // console.log(db.get(2)) // Cup
 // console.log(db.get(3)) // Chair
+
+// Map에 객체를 담아보자 
+let notebook = {
+    productName : "Notebook",
+    price : 20000000
+}
+
+let cup = {
+    productName : "Cup",
+    price : 3000
+}
+
+let chair = {
+    productName : "Chair",
+    price : 1000000
+}
+
+let poster = {
+    productName : "Poster",
+    price : 20000
+}
+
+db.set(1, notebook)
+db.set(2, cup)
+db.set(3, chair)
+db.set(4, poster)
+
+console.log(db.get(1)) // NoteBook
+console.log(db.get(2)) // Cup
+console.log(db.get(3)) // Chair
+console.log(db.get(4)) // Poster 
