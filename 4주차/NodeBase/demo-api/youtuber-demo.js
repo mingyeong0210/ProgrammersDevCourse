@@ -24,11 +24,19 @@ let youtuber3 = {
 }
 
 let db = new Map()
-db.set(1, youtuber1)
-db.set(2, youtuber2)
-db.set(3, youtuber3)
+var id = 1 // 값이 계속 변할거니 let으로 설정 -> 스코프에 걸리니 var로 변경 
+
+db.set(id++, youtuber1)
+db.set(id++, youtuber2)
+db.set(id++, youtuber3)
 
 // REST API 설계 
+// 전체 조회
+app.get('/youtubers', (req, res) => {
+    res.json(db)
+})
+
+// 개별 조회
 app.get('/youtuber/:id', function(req, res) {
     let {id} = req.params    
     id = parseInt(id)
@@ -44,13 +52,14 @@ app.get('/youtuber/:id', function(req, res) {
     }
 })
 
+// 등록 
 app.use(express.json()) // http 외 모듈인 '미들웨어' : json 설정
 app.post('/youtuber', (req, res) => { 
     // 등록 - Map(db)에 저장(set)
-    db.set(4, req.body)
+    db.set(id++, req.body)
 
     res.json({
-        message : `${db.get(4).channelTitle}님, 유튜버 생활을 응원합니다!`
+        message : `${db.get(id-1).channelTitle}님, 유튜버 생활을 응원합니다!`
         // message : db.get(4).channelTitle + "님, 유튜버 생활을 응원합니다!"
     })
 })
