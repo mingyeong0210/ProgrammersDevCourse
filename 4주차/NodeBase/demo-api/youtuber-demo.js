@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express()
 
-app.listen(3000)
+app.listen(1234)
 
 // 데이터 세팅 
 let youtuber1 = {
@@ -42,4 +42,15 @@ app.get('/youtuber/:id', function(req, res) {
     } else {
         res.json(youtuber)
     }
+})
+
+app.use(express.json()) // http 외 모듈인 '미들웨어' : json 설정
+app.post('/youtuber', (req, res) => { 
+    // 등록 - Map(db)에 저장(set)
+    db.set(4, req.body)
+
+    res.json({
+        message : `${db.get(4).channelTitle}님, 유튜버 생활을 응원합니다!`
+        // message : db.get(4).channelTitle + "님, 유튜버 생활을 응원합니다!"
+    })
 })
