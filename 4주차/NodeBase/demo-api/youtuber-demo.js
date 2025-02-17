@@ -33,7 +33,12 @@ db.set(id++, youtuber3)
 // REST API 설계 
 // 전체 조회
 app.get('/youtubers', (req, res) => {
-    res.json(db)
+    var youtubers = {}
+    db.forEach(function(value, key) {
+        youtubers[key] = value
+    })
+
+    res.json(youtubers)
 })
 
 // 개별 조회
