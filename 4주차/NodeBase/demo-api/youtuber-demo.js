@@ -106,3 +106,26 @@ app.delete('/youtubers', (req, res) => {
         message : msg
     })
 })
+
+// 개별 수정
+app.put('/youtubers/:id', (req, res) => {
+    let {id} = req.params
+    id = parseInt(id)
+
+    var youtuber = db.get(id)
+    var oldTitle = youtuber.channelTitle
+
+    if (youtuber == undefined) {
+        res.json({
+            message : `요창하신 ${id}번은 없는 유튜버입니다.`
+        })
+    } else {
+        var newTitle = req.body.channelTitle
+        youtuber.channelTitle = newTitle
+        db.set(id, youtuber)
+
+        res.json({
+            message : `${oldTitle}님, 채널명이 ${newTitle}으로 변경되었습니다.`
+        })
+    }
+})
