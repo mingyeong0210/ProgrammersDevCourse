@@ -35,6 +35,13 @@ app.get('/fruits/:id', (req, res) => {
     // 위 코드를 한줄로 줄이면
     var findFruit = fruits.find(f => f.id == id) // fruits 배열 안에 있는 객체 중, id 값이 params.id랑 같은 객체를 찾겠다
     
+    if (findFruit) {
+        res.json(findFruit)
+    } else { // 예외를 터트린다 = http status code를 성공이 아니라 실패로 
+        res.status(404).send( // 찾는 거 없음 + 메시지 
+            "전달주신 id로 저장된 과일이 없습니다."
+        ) 
+    }
 
-    res.json(findFruit)
+    
 })
