@@ -76,16 +76,31 @@ app.delete('/youtubers/:id', (req, res) => {
 
     var youtuber = db.get(id)
 
-    if (youtuber == undefined) { // 예외 처리
-        res.json({
-            message : `요청하신 ${id}번은 없는 유튜버입니다.`
-        })
-    } else {
+    // 객체가 없다면 ~ , 있다면 ~
+    // if (youtuber == undefined) { // 예외 처리
+    //     res.json({
+    //         message : `요청하신 ${id}번은 없는 유튜버입니다.`
+    //     })
+    // } else {
+    //     const channelTitle = youtuber.channelTitle
+    //     db.delete(id)
+    
+    //     res.json({
+    //         message : `${channelTitle}님, 아쉽지만 다음에 또 뵙겠습니다.`
+    //     })
+    // }
+
+    // 객체가 있다면을 먼저 해주기 (if긍정문)
+    if (youtuber) {
         const channelTitle = youtuber.channelTitle
         db.delete(id)
     
         res.json({
             message : `${channelTitle}님, 아쉽지만 다음에 또 뵙겠습니다.`
+        })
+    } else {
+        res.json({
+            message : `요청하신 ${id}번은 없는 유튜버입니다.`
         })
     }
 })
