@@ -38,10 +38,8 @@ app.get('/fruits/:id', (req, res) => {
     if (findFruit) {
         res.json(findFruit)
     } else { // 예외를 터트린다 = http status code를 성공이 아니라 실패로 
-        res.status(404).send( // 찾는 거 없음 + 메시지 
-            "전달주신 id로 저장된 과일이 없습니다."
-        ) 
+        res.status(404).json({ // 찾는 거 없음 + 메시지 
+            message : "전달주신 id로 저장된 과일이 없습니다."
+        }) 
     }
-
-    
 })
