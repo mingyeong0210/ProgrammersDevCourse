@@ -9,7 +9,19 @@ let id = 1
 app
     .route('/channels')
     .get((req, res) => { // 채널 전체 조회
-        res.send("전체 조회")
+        if (db.size) {
+            var channels = []
+        
+            db.forEach(function(value, key) {
+                channels.push(value)
+            })
+    
+            res.status(200).json(channels)
+        } else {
+            res.status(404).json({
+                message : `조회할 채널이 없습니다.`
+            })
+        }
     }) 
     .post((req, res) => { // 채널 개별 생성
         if (req.body.channelTitle) {
