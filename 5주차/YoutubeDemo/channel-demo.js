@@ -28,7 +28,17 @@ app
 app
     .route('/channels/:id')
     .get((req, res) => { // 채널 개별 조회
-        res.send("개별 조회")
+        let {id} = req.params
+        id = parseInt(id)
+
+        var channel = db.get(id)
+        if (channel) {
+            res.status(200).json(channel)
+        } else {
+            res.status(404).json({
+                message : `채널 정보를 찾을 수 없습니다.`
+            })
+        }
     }) 
     .put((req, res) => { // 채널 개별 수정
         res.send("개별 수정")
