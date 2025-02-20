@@ -41,7 +41,25 @@ app
         }
     }) 
     .put((req, res) => { // 채널 개별 수정
-        res.send("개별 수정")
+        let {id} = req.params
+        id = parseInt(id)
+
+        var channel = db.get(id)
+        var oldTitle = channel.channelTitle
+        if (channel) {
+            var newTitle = req.body.channelTitle
+            
+            channel.channelTitle = newTitle
+            db.set(id, channel)
+
+            res.status(200).json({
+                message : `채널명이 정상적으로 수정되었습니다. 기존 ${oldTitle} -> 수정 ${newTitle}`
+            })
+        } else {
+            res.status(404).json({
+                message : `채널 정보를 찾을 수 없습니다.`
+            })
+        }
     })
     .delete((req, res) => { // 채널 개별 삭제
         let {id} = req.params
