@@ -9,6 +9,32 @@ var id = 1 // 하나의 객체를 유니크하게 구별하기 위함
 
 // 로그인
 app.post('/login', (req, res) => {
+    // body로 userId, pwd 받아오기 
+    const {userId, password} = req.body
+
+    // userId가 db에 저장된 회원인지 확인
+    var hasUserId = false
+    var loginUser = {}
+
+    db.forEach(function(user, id) {
+        if (user.userId === userId) {
+            hasUserId = true 
+            loginUser = user
+        } 
+    })
+
+    if (loginUser) {
+        console.log("같은거 찾았다!")
+
+        // pwd도 맞는지 비교
+        if (loginUser.password === password) {
+            console.log("패스워드도 같다!")
+        } else {
+            console.log("패스워드는 틀렸다!")
+        }
+    } else {
+        console.log("입력하신 아이디는 없는 아이디입니다.")
+    }
 
 })
 
