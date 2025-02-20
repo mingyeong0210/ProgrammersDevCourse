@@ -23,7 +23,7 @@ app.post('/login', (req, res) => {
         } 
     })
 
-    if (loginUser) {
+    if (isExist(loginUser)) { // === if (Object.keys(loginUser).length)
         console.log("같은거 찾았다!")
 
         // pwd도 맞는지 비교
@@ -35,8 +35,15 @@ app.post('/login', (req, res) => {
     } else {
         console.log("입력하신 아이디는 없는 아이디입니다.")
     }
-
 })
+
+function isExist(obj) {
+    if (Object.keys(obj).length) {
+        return true
+    } else {
+        return false
+    }
+}
 
 // 회원가입
 app.post('/join', (req, res) => {
