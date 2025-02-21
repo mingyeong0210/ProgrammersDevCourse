@@ -1,14 +1,17 @@
 // express 모듈 세팅 // 모듈 설치 -> npm install express
 const express = require('express')
-const app = express()
-app.listen(7777)
-app.use(express.json()) // http 외 모듈 'json'
+// const app = express() -> app.js에서 할 것
+// app.listen(7777) -> app.js에서 할 것
+const router = express.Router() // 라우터로 활용하기 위함
+
+// app.use(express.json()) // http 외 모듈 'json'
+router.use(express.json()) // app 대신 router로 전부 교체 ! 
 
 let db = new Map()
 var id = 1 // 하나의 객체를 유니크하게 구별하기 위함 
 
 // 로그인
-app.post('/login', (req, res) => {
+router.post('/login', (req, res) => {
     // body로 userId, pwd 받아오기 
     const {userId, password} = req.body
 
@@ -46,7 +49,7 @@ function isExist(obj) {
 }
 
 // 회원가입
-app.post('/join', (req, res) => {
+router.post('/join', (req, res) => {
     if (req.body.length !== 0) {
         db.set(id++, req.body)
 
@@ -61,7 +64,7 @@ app.post('/join', (req, res) => {
 })
 
 // 회원 개별 조회
-// app.get('/users/:id', (req, res) => {
+// router.get('/users/:id', (req, res) => {
 //     let {id} = req.params
 //     id = parseInt(id)
 
@@ -79,7 +82,7 @@ app.post('/join', (req, res) => {
 // })
 
 // 회원 개별 탈퇴
-// app.delete('/users/:id', (req, res) => {
+// router.delete('/users/:id', (req, res) => {
 //     let {id} = req.params
 //     id = parseInt(id)
 
@@ -98,7 +101,7 @@ app.post('/join', (req, res) => {
 // })
 
 // 라우팅 (개별 조회, 개별 삭제)
-app
+router
     .route('/users/:id')
     .get((req, res) => {
         let {id} = req.params
@@ -133,3 +136,5 @@ app
             })
         }
     })
+
+module.exports = router

@@ -1,13 +1,13 @@
 const express = require('express')
-const app = express()
-app.listen(7777)
-app.use(express.json())
+const router = express.Router() // app 관련 내용은 app.js에서 해줄 것이기에 router로 변경 
+
+router.use(express.json())
 
 let db = new Map()
 let id = 1
 
-app
-    .route('/channels')
+router
+    .route('/')
     .get((req, res) => { // 채널 전체 조회
         if (db.size) {
             var channels = []
@@ -37,8 +37,8 @@ app
         }
     }) 
 
-app
-    .route('/channels/:id')
+router
+    .route('/:id')
     .get((req, res) => { // 채널 개별 조회
         let {id} = req.params
         id = parseInt(id)
@@ -90,3 +90,5 @@ app
             })
         }
     })
+
+module.exports = router
