@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const conn = require('../mariadb')
+const {body, validationResult} = require('express-validator')
 
 router.use(express.json())
 
@@ -27,22 +28,30 @@ router
             res.status(400).end()
         }
     })
-    .post((req, res) => {
-        const {name, userId} = req.body
-        if (name && userId) {
-            let sql = 'INSERT INTO channels (name, user_id) VALUES (?, ?)'
-            let values = [name, userId]
-            conn.query(sql, values,
-                function(err, results) {
-                    res.status(201).json(results)
-                }
-            )
-        } else {
-            res.status(400).json({
-                message : `요청 값을 제대로 보내주세요.`
-            })
-        }
-    })
+    .post(
+        body('userId').notEmpty().isInt().withMessage('숫자 입력하자!'), // express-validator로 받아온 메소드 // 비면 안되고 숫자이어야 함
+        (req, res) => {
+            const err = validationResult(req)
+
+            if(!err.isEmpty()) {
+                console.log(err.array())
+            }
+
+            const {name, userId} = req.body
+            if (name) {
+                let sql = 'INSERT INTO channels (name, user_id) VALUES (?, ?)'
+                let values = [name, userId]
+                conn.query(sql, values,
+                    function(err, results) {
+                        res.status(201).json(results)
+                    }
+                )
+            } else {
+                res.status(400).json({
+                    message : `요청 값을 제대로 보내주세요.`
+                })
+            }
+        })
 
 router
     .route('/:id')
