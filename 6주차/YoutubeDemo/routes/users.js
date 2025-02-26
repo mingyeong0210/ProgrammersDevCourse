@@ -1,31 +1,17 @@
-// express 모듈 세팅
 const express = require('express')
-const router = express.Router() 
+const router = express.Router()
 const conn = require('../mariadb')
 
-// simple query
-conn.query(
-    'SELECT * FROM `users`',
-    function(err, results, fields) {
-        // results : 행 내용을 json array형태로 출력
-        // fields : results 외에 테이블이 가진 정보에 대한 내용
-    }
-);
+router.use(express.json())
 
-router.use(express.json()) 
-
-let db = new Map()
-var id = 1 // 하나의 객체를 유니크하게 구별하기 위함 
-
-// 로그인
 router.post('/login', (req, res) => {
-    // email이 DB에 저장된 회원인지 확인
     const {email, password} = req.body
 
-    conn.query(
-        'SELECT * FROM users WHERE email = ?', email, // 값이 없다면 텅 빈 배열을 반환
-        function(err, results, fields) {
-            var loginUser = results[0];
+    let sql = 'SELECT * FROM users WHERE email = ?'
+    conn.query(sql, email,
+        function(err, results) {
+            var loginUser = results[0]
+
             if(loginUser && loginUser.password == password) {
                 res.status(200).json({
                     message : `${loginUser.name}님 로그인 되었습니다.`
@@ -36,18 +22,9 @@ router.post('/login', (req, res) => {
                 })
             }
         }
-    );
+    )
 })
 
-function isExist(obj) {
-    if (Object.keys(obj).length) {
-        return true
-    } else {
-        return false
-    }
-}
-
-// 회원가입
 router.post('/join', (req, res) => {
     if (req.body == {}) {
         res.status(400).json({
@@ -56,37 +33,37 @@ router.post('/join', (req, res) => {
     } else {
         const {email, name, password, contact} = req.body
 
-        conn.query(
-            'INSERT INTO users (email, name, password, contact) VALUES (?, ?, ?, ?)', [email, name, password, contact],
-            function(err, results, fields) {
+        let sql = 'INSERT INTO users (email, name, password, contact) VALUES (?, ?, ?, ?)'
+        let values = [email, name, password, contact]
+        conn.query(sql, values,
+            function(err, results) {
                 res.status(201).json(results)
             }
         )
     }
 })
 
-// 라우팅 (개별 조회, 개별 삭제)
 router
     .route('/users')
     .get((req, res) => {    
-        let {email} = req.body // string으로 해결하고 있기에 parseInt 사용 X 
+        let {email} = req.body
 
-        conn.query(
-            'SELECT * FROM users WHERE email = ?', email,
-            function(err, results, fields) {
+        let sql = 'SELECT * FROM users WHERE email = ?'
+        conn.query(sql, email,
+            function(err, results) {
                 res.status(200).json(results)
             }
-        );
+        )
     })
     .delete((req, res) => {
         let {email} = req.body
     
-        conn.query(
-            'DELETE FROM users WHERE email = ?', email,
-            function(err, results, fields) {
+        let sql = 'DELETE FROM users WHERE email = ?'
+        conn.query(sql, email,
+            function(err, results) {
                 res.status(200).json(results)
             }
-        );
+        )
     })
 
 module.exports = router
