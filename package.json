@@ -19,6 +19,7 @@
   "homepage": "https://github.com/mingyeong0210/ProgrammersDevCourse#readme",
   "dependencies": {
     "express": "^4.21.2",
+    "express-validator": "^7.2.1",
     "mysql2": "^3.12.0"
   }
 }
