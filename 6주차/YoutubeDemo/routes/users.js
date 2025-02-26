@@ -9,12 +9,6 @@ conn.query(
     function(err, results, fields) {
         // results : 행 내용을 json array형태로 출력
         // fields : results 외에 테이블이 가진 정보에 대한 내용
-
-        var {id, email, name, created_at} = results[0];
-        console.log(id); 
-        console.log(email); 
-        console.log(name); 
-        console.log(created_at);
     }
 );
 
@@ -86,19 +80,14 @@ router.post('/join', (req, res) => {
 router
     .route('/users')
     .get((req, res) => {    
-        let {userId} = req.body // string으로 해결하고 있기에 parseInt 사용 X 
+        let {email} = req.body // string으로 해결하고 있기에 parseInt 사용 X 
 
-        const user = db.get(userId)
-        if (user) {
-            res.status(200).json({
-                userId : user.userId,
-                name : user.name
-            })
-        } else {
-            res.status(404).json({
-                message : `회원 정보가 없습니다.`
-            })
-        }
+        conn.query(
+            'SELECT * FROM `users` WHERE email = ?', email,
+            function(err, results, fields) {
+                res.status(200).json(results)
+            }
+        );
     })
     .delete((req, res) => {
         let {userId} = req.body
