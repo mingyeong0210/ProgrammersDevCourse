@@ -85,27 +85,21 @@ router
         let {email} = req.body // string으로 해결하고 있기에 parseInt 사용 X 
 
         conn.query(
-            'SELECT * FROM `users` WHERE email = ?', email,
+            'SELECT * FROM users WHERE email = ?', email,
             function(err, results, fields) {
                 res.status(200).json(results)
             }
         );
     })
     .delete((req, res) => {
-        let {userId} = req.body
+        let {email} = req.body
     
-        const user = db.get(userId)
-        if (user) {
-            db.delete(userId)
-    
-            res.status(200).json({
-                message : `${user.name}님 다음에 또 뵙겠습니다.`
-            })
-        } else {
-            res.status(404).json({
-                message : `회원 정보가 없습니다.`
-            })
-        }
+        conn.query(
+            'DELETE FROM users WHERE email = ?', email,
+            function(err, results, fields) {
+                res.status(200).json(results)
+            }
+        );
     })
 
 module.exports = router
