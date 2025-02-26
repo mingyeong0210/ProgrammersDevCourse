@@ -19,37 +19,24 @@ var id = 1 // 하나의 객체를 유니크하게 구별하기 위함
 
 // 로그인
 router.post('/login', (req, res) => {
-    // body로 userId, pwd 받아오기 
-    const {userId, password} = req.body
+    // email이 DB에 저장된 회원인지 확인
+    const {email, password} = req.body
 
-    // userId가 db에 저장된 회원인지 확인
-    var hasUserId = false
-    var loginUser = {}
-
-    db.forEach(function(user, id) {
-        if (user.userId === userId) {
-            hasUserId = true 
-            loginUser = user
-        } 
-    })
-
-    if (isExist(loginUser)) { // === if (Object.keys(loginUser).length)
-
-        // pwd도 맞는지 비교
-        if (loginUser.password === password) {
-            res.status(200).json({
-                message : `${loginUser.name}님 로그인 되었습니다.`
-            })
-        } else {
-            res.status(400).json({
-                message : `비밀번호가 틀렸습니다.`
-            })
+    conn.query(
+        'SELECT * FROM users WHERE email = ?', email, // 값이 없다면 텅 빈 배열을 반환
+        function(err, results, fields) {
+            var loginUser = results[0];
+            if(loginUser && loginUser.password == password) {
+                res.status(200).json({
+                    message : `${loginUser.name}님 로그인 되었습니다.`
+                })
+            } else {
+                res.status(404).json({
+                    message : `이메일 또는 비밀번호가 틀렸습니다.`
+                })
+            }
         }
-    } else {
-        res.status(404).json({
-            message : `회원 정보가 없습니다.`
-        })
-    }
+    );
 })
 
 function isExist(obj) {
