@@ -29,29 +29,32 @@ router
         }
     })
     .post(
-        body('userId').notEmpty().isInt().withMessage('숫자 입력하자!'), // express-validator로 받아온 메소드 // 비면 안되고 숫자이어야 함
+        [body('userId').notEmpty().isInt().withMessage('숫자 입력 필요!'),
+        body('name').notEmpty().isString().withMessage('문자 입력 필요!')
+        ],
         (req, res) => {
             const err = validationResult(req)
 
-            if(!err.isEmpty()) {
+            if (!err.isEmpty()) {
                 console.log(err.array())
+                return res.status(400).json(err.array()) 
             }
 
             const {name, userId} = req.body
-            if (name) {
-                let sql = 'INSERT INTO channels (name, user_id) VALUES (?, ?)'
-                let values = [name, userId]
-                conn.query(sql, values,
-                    function(err, results) {
-                        res.status(201).json(results)
+
+            let sql = 'INSERT INTO channels (name, user_id) VALUES (?, ?)'
+            let values = [name, userId]
+            conn.query(sql, values,
+                function(err, results) {
+                    if (err) {
+                        console.log(err)
+                        return res.status(400).end()
                     }
-                )
-            } else {
-                res.status(400).json({
-                    message : `요청 값을 제대로 보내주세요.`
-                })
-            }
-        })
+                    res.status(201).json(results)
+                }
+            )
+        }
+    )
 
 router
     .route('/:id')
