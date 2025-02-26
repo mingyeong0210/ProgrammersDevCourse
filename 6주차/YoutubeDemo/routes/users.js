@@ -62,17 +62,19 @@ function isExist(obj) {
 
 // 회원가입
 router.post('/join', (req, res) => {
-    if (req.body.length !== 0) {
-        const {userId} = req.body
-        db.set(userId, req.body)
-
-        res.status(201).json({
-            message : `${db.get(userId).name}님 환영합니다.`
-        })
-    } else {
+    if (req.body == {}) {
         res.status(400).json({
             message : `입력 값을 다시 확인해주세요.`
         })
+    } else {
+        const {email, name, password, contact} = req.body
+
+        conn.query(
+            'INSERT INTO users (email, name, password, contact) VALUES (?, ?, ?, ?)', [email, name, password, contact],
+            function(err, results, fields) {
+                res.status(201).json(results)
+            }
+        )
     }
 })
 
