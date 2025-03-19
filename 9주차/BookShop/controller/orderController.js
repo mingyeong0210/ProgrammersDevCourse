@@ -18,10 +18,12 @@ const order = (req, res) => {
             }
 
             delivery_id = results.insertId;
-            
-            return res.status(StatusCodes.OK).json(results);
+            console.log("results.insertId", results.insertId);
+            console.log("cnn.query - delivery_id", delivery_id);
         }
     )
+
+    console.log("out - delivery_id", delivery_id);
 
     sql = `INSERT INTO orders (book_title, total_quantity, total_price, user_id, delivery_id) 
             VALUES (?, ?, ?, ?, ?)`;
@@ -36,8 +38,6 @@ const order = (req, res) => {
 
             order_id = results.insertId;
             console.log(order_id);
-            
-            return res.status(StatusCodes.OK).json(results);
         }
     )
 
