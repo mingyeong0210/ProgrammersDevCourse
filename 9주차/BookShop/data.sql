@@ -87,3 +87,6 @@ VALUES (order_id, 3, 2);
 -- 방금 INSERT한 id = 최신 값 = id중 가장 큰 값 조회하는 방법 두가지
 SELECT max(id) FROM Bookshop.orderedBook;
 SELECT last_insert_id();
+
+-- 결제된 도서 장바구니 삭제
+DELETE FROM cartItems WHERE id IN (1,2,3);
