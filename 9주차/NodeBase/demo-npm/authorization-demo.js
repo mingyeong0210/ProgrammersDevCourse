@@ -9,7 +9,12 @@ app.listen(process.env.PORT);
   
 // GET + '/jwt' : 토큰 발행
 app.get('/jwt', function (req, res) { 
-  var token = jwt.sign({ foo : 'bar'}, process.env.PRIVATE_KEY);
+  const token = jwt.sign({
+      username : "kang mingyeong"
+  }, process.env.PRIVATE_KEY, {
+      expiresIn : '1m',
+      issuer : 'admin'
+  });
 
   res.cookie("jwt", token, {
     httpOnly : true
