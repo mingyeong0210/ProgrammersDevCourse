@@ -2,9 +2,6 @@ const ensureAuthorization = require('../auth.js');
 var jwt = require('jsonwebtoken');
 const conn = require('../mariadb');
 const { StatusCodes } = require('http-status-codes');
-const dotenv = require('dotenv');
-
-dotenv.config();
 
 // 장바구니 담기
 const addToCart = (req, res) => {
@@ -39,7 +36,7 @@ const addToCart = (req, res) => {
 
 // 장바구니 아이템 목록 조회
 const getCartItems = (req, res) => {
-    const {selected} = req.body;
+    const {selected} = req.body; // selected = [1, 2]
 
     let authorization = ensureAuthorization(req, res);
 
