@@ -6,11 +6,14 @@ const ensureAuthorization = (req, res) => {
     try {
         let receivedJWT = req.headers["authorization"];
         console.log("receivedJWT : ", receivedJWT);
-    
-        let decodedJWT = jwt.verify(receivedJWT, process.env.PRIVATE_KEY);
-        console.log("decodedJWT : ", decodedJWT);
 
-        return decodedJWT;
+        if(receivedJWT) {
+            let decodedJWT = jwt.verify(receivedJWT, process.env.PRIVATE_KEY);
+            console.log("decodedJWT : ", decodedJWT);
+            return decodedJWT;
+        } else {
+            throw new ReferenceError("jwt must be provided");
+        }
     } catch (err) {
         console.log(err.name);
         console.log(err.message);
