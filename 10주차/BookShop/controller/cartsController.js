@@ -66,7 +66,10 @@ const getCartItems = (req, res) => {
                     console.log(err);
                     return res.status(StatusCodes.BAD_REQUEST).end();
                 }
-    
+                results.map(function(result) {
+                    result.bookId = result.book_id;
+                    delete result.book_id;
+                });
                 return res.status(StatusCodes.OK).json(results);
             }
         );

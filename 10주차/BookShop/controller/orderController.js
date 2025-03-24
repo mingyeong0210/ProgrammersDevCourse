@@ -90,6 +90,19 @@ const getOrders = async (req, res) => {
     
         let [rows, fields] = await conn.query(sql);
     
+        rows.map(function(row) {
+            row.createdAt = row.created_at;
+            delete row.created_at;
+
+            row.bookTitle = row.book_title;
+            delete row.book_title;
+
+            row.totalQuantity = row.total_quantity;
+            delete row.total_quantity;
+
+            row.totalPrice = row.total_price;
+            delete row.total_price;
+        });
         return res.status(StatusCodes.OK).json(rows);
     }
 };
@@ -122,6 +135,11 @@ const getOrderDetail = async (req, res) => {
                     WHERE order_id = ?`;
     
         let [rows, fields] = await conn.query(sql, [orderId]);
+
+        rows.map(function(row) {
+            row.bookId = row.book_id;
+            delete row.book_id;
+        });
     
         return res.status(StatusCodes.OK).json(rows);
     }

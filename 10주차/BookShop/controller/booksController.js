@@ -35,12 +35,17 @@ const allBooks = (req, res) => {
                 // return res.status(StatusCodes.BAD_REQUEST).end();
             }
             console.log(results);
-            if(results.length)
+            if(results.length) {
+                results.map(function(result) {
+                    result.pubDate = result.pub_date;
+                    delete result.pub_date;
+                });
                 allBooksRes.books = results;
+            }
             else
                 return res.status(StatusCodes.NOT_FOUND).end();
         }
-    )
+    );
 
     sql = 'SELECT found_rows()';
     conn.query(sql,
@@ -95,8 +100,13 @@ const bookDetail = (req, res) => {
                     return res.status(StatusCodes.BAD_REQUEST).end();
                 }
     
-                if(results[0])
+                if(results[0]) {
+                    results[0].map(function(result) {
+                        result.pubDate = result.pub_date;
+                        delete result.pub_date;
+                    });
                     return res.status(StatusCodes.OK).json(results[0]);
+                }
                 else
                     return res.status(StatusCodes.NOT_FOUND).end();
         })
@@ -120,8 +130,13 @@ const bookDetail = (req, res) => {
                     return res.status(StatusCodes.BAD_REQUEST).end();
                 }
     
-                if(results[0])
+                if(results[0]) {
+                    results[0].map(function(result) {
+                        result.pubDate = result.pub_date;
+                        delete result.pub_date;
+                    });
                     return res.status(StatusCodes.OK).json(results[0]);
+                }
                 else
                     return res.status(StatusCodes.NOT_FOUND).end();
         })
