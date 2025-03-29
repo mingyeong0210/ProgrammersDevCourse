@@ -32,7 +32,7 @@ function reRender() {
 
 export function renderHistoryList() {
   // TODO: 데이터 매핑 ✅
-  // TODO: 오름차순으로 목록 나열
+  // TODO: 오름차순으로 목록 나열 ✅ sort()
   // TODO: 항목의 시간 포맷 변경: ISO -> `HH:mm` ✅ toLocaleTimeString()
   // TODO: 금액 콤마 포맷 맞추기 ✅ toLocaleString()
 
@@ -43,7 +43,7 @@ export function renderHistoryList() {
 
       return `<article class="history-per-day">
       <p class="history-date">2021년 12월 1일</p>
-      ${detail.map(({ description, category, amount, fundsAtTheTime, createAt }) => {
+      ${detail.sort((a,b) => b.id - a.id).map(({ description, category, amount, fundsAtTheTime, createAt }) => {
         const time = new Date(createAt).toLocaleTimeString('ko-kr', {
           timeStyle: 'short',
           hourCycle: 'h24' 
