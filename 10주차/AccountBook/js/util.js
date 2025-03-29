@@ -7,7 +7,7 @@ export function toHidden(node) {
 }
 
 export function validatePrice(currentFunds, currentAmount) {
-  // TODO: 금액이 현재 자산보다 이하인지
+  // TODO: 금액이 현재 자산보다 이하인지 ✅
   return currentFunds >= currentAmount;
 }
 

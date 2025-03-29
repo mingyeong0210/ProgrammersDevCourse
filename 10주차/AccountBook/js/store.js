@@ -51,11 +51,15 @@ export function addNewHistory(newHistory) {
   try {
     // TODO:
     /**
-     * - store의 detailList 새로 갱신
-     * - store.currentFunds 새로 갱신
+     * - store의 detailList 새로 갱신 ✅
+     * - store.currentFunds 새로 갱신 ✅
      */
-    store.detailList = null;
-    store.currentFunds = null;
+    if(store.detailList[store.todayId]) {
+      store.detailList[store.todayId] = store.detailList[store.todayId].push(newHistory);
+    } else { // 키가 존재하지 않는 경우 
+      store.detailList[store.todayId] = [newHistory];
+    }
+    store.currentFunds -= newHistory.amount;
 
     updateStorage();
     return true;
