@@ -55,7 +55,7 @@ export function addNewHistory(newHistory) {
      * - store.currentFunds 새로 갱신 ✅
      */
     if(store.detailList[store.todayId]) {
-      store.detailList[store.todayId] = store.detailList[store.todayId].push(newHistory);
+      store.detailList[store.todayId].push(newHistory);
     } else { // 키가 존재하지 않는 경우 
       store.detailList[store.todayId] = [newHistory];
     }
