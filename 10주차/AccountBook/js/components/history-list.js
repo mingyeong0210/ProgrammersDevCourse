@@ -43,7 +43,7 @@ export function renderHistoryList() {
 
       return `<article class="history-per-day">
       <p class="history-date">2021년 12월 1일</p>
-      ${detail.sort((a,b) => b.id - a.id).map(({ description, category, amount, fundsAtTheTime, createAt }) => {
+      ${detail.sort((a,b) => b.id - a.id).map(({ description, category, amount, fundsAtTheTime, createAt, id }) => {
         const time = new Date(createAt).toLocaleTimeString('ko-kr', {
           timeStyle: 'short',
           hourCycle: 'h24' 
@@ -66,7 +66,7 @@ export function renderHistoryList() {
               </div>
             </div>
             <div class="delete-section">
-              <button class="delete-button">🗑</button>
+              <button class="delete-button" data-dateid=${dateId} data-itemid=${id}>🗑</button>
             </div>
           </section>
           <section class="history-item-caption">
