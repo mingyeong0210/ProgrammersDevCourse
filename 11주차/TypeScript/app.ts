@@ -107,24 +107,65 @@
 // let numStr : number | string = '100';
 
 // 타입별칭 
-type strOrNum = number | string;
+// type strOrNum = number | string;
 
-let numStr : strOrNum = '100';
-let item : number;
+// let numStr : strOrNum = '100';
+// let item : number;
 
-function convertToString(val : strOrNum) : string {
-    if(typeof val == 'string') {
-        item = 0;
-    } else {
-        item = val;
-    }
+// function convertToString(val : strOrNum) : string {
+//     if(typeof val == 'string') {
+//         item = 0;
+//     } else {
+//         item = val;
+//     }
 
-    return String(val);
+//     return String(val);
+// }
+
+// function convertToNumber(val : strOrNum) : number {
+//     return Number(val);
+// }
+
+// console.log(convertToString(numStr));
+// console.log(convertToNumber(numStr));
+
+// array
+let numbers : number[] = [1,2,3,4,5]; // 숫자형 배열 기본 선언 형태
+let fruits : string[] = ['apple', 'banana', 'orange']; // 문자열 배열 기본 선언 형태
+
+for(let i=0; i<numbers.length; i++) {
+    console.log(numbers[i]);
 }
 
-function convertToNumber(val : strOrNum) : number {
-    return Number(val);
+for(let i=0; i<fruits.length; i++) {
+    console.log(fruits[i]);
 }
 
-console.log(convertToString(numStr));
-console.log(convertToNumber(numStr));
+// 배열의 유니온 타입
+let mixedArray : (number | string)[] = [1, 'two', 3, 'four'];
+
+for(let i=0; i < mixedArray.length; i++) {
+    console.log(mixedArray[i]);
+}
+
+let infer = [1,2,3]; // 타입 추론
+for (let i=0; i<infer.length; i++) {
+    console.log(infer[i]);
+}
+
+let readOnlyArray : ReadonlyArray<number> = [1,2,3]; // 읽기 전용 -> 수정 불가 
+
+// 튜플 : 여러 타입의 배열을 가지고 있고 타입의 순서가 정해져 있음. 자바스크립트엔 없음
+let greeting : [number, string, boolean] = [1, 'heelo', true];
+for (let i=0; i<greeting.length; i++) {
+    console.log(greeting[i]);
+}
+
+// Spread 연산자 -> 괄호를 풀어주는 역할 
+let firstArray = [1,2,3];
+let secondArray = [4,5,6];
+
+let combineArray = [...firstArray, ...secondArray]; // spread연산자로 괄호를 풀어준 후 다시 묶어줌 
+for (let i=0; i<combineArray.length; i++) {
+    console.log(combineArray[i]);
+}
