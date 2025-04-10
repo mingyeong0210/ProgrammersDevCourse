@@ -1,16 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import TodoList from './Todolist';
-import MapTest from './MapTest';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  let name = "리액트";
-
   return (
     <div className="container">
       <TodoList></TodoList>
-      {/* <MapTest></MapTest> */}
     </div>
   );
 }

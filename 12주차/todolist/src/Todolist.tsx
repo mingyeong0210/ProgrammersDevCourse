@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
 
 type Todo = {
     id : number;
@@ -16,21 +17,59 @@ const TodoList : React.FC = () => {
         { id : 3, text : '미팅하기', isChecked : false}, 
     ]);
 
+    const [newTodo, setNewTodo] = useState<string>('');
+    
+    const handleCheckedChange = (itemId : number) => {
+        setTodos((prevItems) => 
+            prevItems.map((item) => 
+                item.id === itemId ? {...item, isChecked : !item.isChecked} : item
+            )
+        )
+    }
+
+    const addTodo = () => {
+        if(newTodo.trim() !== '') { // 변화가 있는지 확인 
+            setTodos([...todos, {id : Date.now(), text: newTodo, isChecked: false}]);
+            setNewTodo('');
+        }
+    }
+
     return(
         <div>
             <h1>{title}</h1>
             <p></p>
             <div className='container'>
+                <div>
+                    <input type='text'
+                        placeholder='할일 입력'
+                        style={{marginRight: '10px', writingMode: 'horizontal-tb'}}
+                        onChange={(e) => setNewTodo(e.target.value)}
+                    />
+                    <Button variant='warning' onClick={addTodo}>추가</Button>
+                    <p></p>
+                </div>
                 <div className='board'>
                     <ul>
                         {
                             todos.map((todo, index) => (
-                                <li key={index}>{todo.text}</li>
+                                <li key={todo.id}>
+                                    <input type='checkbox'
+                                        onChange={()=>{
+                                        handleCheckedChange(todo.id)
+                                        }}></input>
+                                    <span>
+                                        {
+                                            todo.isChecked ? 
+                                            <del>{todo.text}</del> 
+                                            : <span>{todo.text}</span>
+                                        }
+                                    </span>
+                                </li>
                             ))
                         }
                     </ul>
                 </div>
-        </div>
+            </div>
         </div>
     )
 }
