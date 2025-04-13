@@ -23,5 +23,5 @@ export const title = style({
 })
 
 export const description = style({
-    fontSize: vars.fontSizing.T1
+    fontSize: vars.fontSizing.P1
 })
