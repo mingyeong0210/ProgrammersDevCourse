@@ -13,13 +13,13 @@ const ListContainer: FC<TListContainerProps> = ({ lists, boardId }) => {
   return (
     <div className={listContainer}>
       {
-        lists.map(list => {
+        lists.map(list => (
           <List 
             key={list.listId}
             list={list}
             boardId={boardId}
           />
-        })
+        ))
       }
       <ActionButton />
     </div>

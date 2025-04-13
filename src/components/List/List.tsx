@@ -17,6 +17,7 @@ type TListProps = {
 
 const List: FC<TListProps> = ({list, boardId}) => {
   const dispatch = useTypedDispatch();
+  console.log(list);
 
   const handleListDelete = (listId: string) => {
     dispatch(deleteList({boardId, listId}));
@@ -47,7 +48,7 @@ const List: FC<TListProps> = ({list, boardId}) => {
         />
       </div>
 
-      {list.tasks.map((task, index) => {
+      {list.tasks.map((task, index) => (
         <div onClick={() => handleTaskChange(boardId, list.listId, task.taskId, task)} key={task.taskId}>
             <Task 
               taskName={task.taskName}
@@ -57,7 +58,7 @@ const List: FC<TListProps> = ({list, boardId}) => {
               index={index}
             />
         </div>
-      })}
+      ))}
       <ActionButton />
     </div>
   )

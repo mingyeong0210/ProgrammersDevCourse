@@ -13,7 +13,7 @@ function App() {
   const getActiveBoard = boards.filter(board => board.boardId === activeBoardId)[0];
 
   const lists = getActiveBoard.lists;
-
+  
   return (
     <div className={appContainer}>
       <BoardList activeBoardId={activeBoardId} setActiveBoardId={setActiveBoardId}/>
