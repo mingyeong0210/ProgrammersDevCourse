@@ -1,11 +1,13 @@
 import { useState } from 'react'
-import { appContainer, board, buttons } from './App.css'
+import { appContainer, board, buttons, deleteBoardButton, loggerButton } from './App.css'
 import BoardList from './components/BoardList/BoardList'
 import ListContainer from './components/ListContainer/ListContainer'
 import { useTypedSelector } from './hooks/redux'
 import EditModal from './components/EditModal/EditModal'
+import LoggerModal from './components/LoggerModal/LoggerModal'
 
 function App() {
+  const [isLoggerOpen, setIsLoggerOpen] = useState(false);
   const [activeBoardId, setActiveBoardId] = useState('board-0');
 
   const modalActive =  useTypedSelector(state => state.boards.modalActive);
@@ -17,20 +19,21 @@ function App() {
   
   return (
     <div className={appContainer}>
-      <BoardList activeBoardId={activeBoardId} setActiveBoardId={setActiveBoardId}/>
-
+      {isLoggerOpen ? <LoggerModal setIsLoggerOpen={setIsLoggerOpen} /> : null}
       {modalActive ? <EditModal /> : null}
+      
+      <BoardList activeBoardId={activeBoardId} setActiveBoardId={setActiveBoardId}/>
 
       <div className={board}>
         <ListContainer lists = {lists} boardId={getActiveBoard.boardId}/>
       </div>
 
-      <div>
-        <button className={buttons}>
+      <div className={buttons}>
+        <button className={deleteBoardButton}>
           이 게시판 삭제하기
         </button>
-        <button>
-          활동 목록 보이기
+        <button onClick={() => setIsLoggerOpen(!isLoggerOpen)} className={loggerButton}>
+          {isLoggerOpen ? "활동 목록 숨기기" : "활동 목록 보이기"}
         </button>
       </div>
     </div>
