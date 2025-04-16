@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { FC, useState } from 'react'
 import DropDownForm from './DropDownForm/DropDownForm';
 import { IoIosAdd } from 'react-icons/io';
 import { listButton, taskButton } from './ActionButton.css';
@@ -14,12 +14,12 @@ const ActionButton: FC<TActionButtonProps> = ({
   listId,
   list
 }) => {
-  const [isFromOpen, setIsFromOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const buttonText = list ? '새로운 리스트 등록' : '새로운 일 등록';
   
-  return isFromOpen ? (
+  return isFormOpen ? (
     <DropDownForm 
-      setIsFromOpen={setIsFromOpen}
+      setIsFormOpen={setIsFormOpen}
       list={list ? true : false}
       boardId={boardId}
       listId={listId}
@@ -27,7 +27,7 @@ const ActionButton: FC<TActionButtonProps> = ({
   ) : (
     <div 
       className={list ? listButton : taskButton}
-      onClick={() => setIsFromOpen(true)}
+      onClick={() => setIsFormOpen(true)}
     >
       <IoIosAdd />
       <p>{buttonText}</p>

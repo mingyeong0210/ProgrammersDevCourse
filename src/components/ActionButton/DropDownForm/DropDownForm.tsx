@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, FC, useState } from 'react'
 import { FiX } from 'react-icons/fi';
 import { useTypedDispatch } from '../../../hooks/redux';
 import { addList, addTask } from '../../../store/slices/boardsSlice';
