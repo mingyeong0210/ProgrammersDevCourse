@@ -1,7 +1,7 @@
 import exp from "constants";
 
 export type ThemeName = `light` | `dark`;
-export type ColorKey = `primary` | `background` | `secondary` | `third`;
+export type ColorKey = `primary` | `background` | `secondary` | `third` | `border` | `text`;
 export type HeadingSize = `large` | `medium` | `small`;
 export type ButtonSize = `large` | `medium` | `small`;
 export type ButtonSchema = `primary` | `normal`;
@@ -38,6 +38,8 @@ export const light: Theme = {
         background: `lightgray`,
         secondary: `blue`,
         third: `green`,
+        border: `grey`,
+        text: `black`,
     },
     heading: {
         large: {
@@ -87,6 +89,8 @@ export const dark: Theme = {
         background: `midnightblue`,
         secondary: `darkblue`,
         third: `darkgreen`,
+        border: `grey`,
+        text: `black`,
     },
 };
 
