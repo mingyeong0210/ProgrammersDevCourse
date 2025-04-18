@@ -1,9 +1,12 @@
+import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
 
 function App() {
   return (
-    // <div className="App">book store</div>
-    <Home />
+    // <Layout children={<Home />}/>
+    <Layout>
+      <Home />
+    </Layout>
   );
 }
 
