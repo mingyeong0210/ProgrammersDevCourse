@@ -1,12 +1,17 @@
 import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
+import { GlobalStyle } from './style/global';
+import { ThemeProvider } from "styled-components";
+import { dark, light } from "./style/theme";
 
 function App() {
   return (
-    // <Layout children={<Home />}/>
-    <Layout>
-      <Home />
-    </Layout>
+      <ThemeProvider theme={light}>
+        <GlobalStyle themeName="light"/>
+        <Layout>
+          <Home />
+        </Layout>
+      </ThemeProvider>
   );
 }
 
