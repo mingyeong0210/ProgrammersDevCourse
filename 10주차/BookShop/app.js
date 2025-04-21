@@ -8,6 +8,13 @@ dotenv.config();
 
 app.listen(process.env.PORT);
 
+// cors 모듈
+const cors = require('cors');
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
+
 const userRouter = require('./routes/users');
 const bookRouter = require('./routes/books');
 const categoryRouter = require('./routes/category');
