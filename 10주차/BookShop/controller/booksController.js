@@ -101,10 +101,15 @@ const bookDetail = (req, res) => {
                 }
     
                 if(results[0]) {
-                    results[0].map(function(result) {
-                        result.pubDate = result.pub_date;
-                        delete result.pub_date;
-                    });
+                    // results[0].map(function(result) {
+                    //     result.pubDate = result.pub_date;
+                    //     delete result.pub_date;
+                    // });
+                    let result = results[0];
+                    result.pubDate = result.pub_date;
+                    delete result.pub_date;
+                    result.categoryName = result.category_name;
+                    delete result.category_name;
                     return res.status(StatusCodes.OK).json(results[0]);
                 }
                 else
@@ -131,10 +136,15 @@ const bookDetail = (req, res) => {
                 }
     
                 if(results[0]) {
-                    results[0].map(function(result) {
-                        result.pubDate = result.pub_date;
-                        delete result.pub_date;
-                    });
+                    // results[0].map(function(result) {
+                    //     result.pubDate = result.pub_date;
+                    //     delete result.pub_date;
+                    // });
+                    let result = results[0];
+                    result.pubDate = result.pub_date;
+                    delete result.pub_date;
+                    result.categoryName = result.category_name;
+                    delete result.category_name;
                     return res.status(StatusCodes.OK).json(results[0]);
                 }
                 else
