@@ -73,14 +73,14 @@ function Header() {
 }
 
 const HeaderStyled = styled.header`
-  widht: 100%;
+  width: 100%;
   margin: 0 auto;
   max-width: ${({ theme }) => theme.layout.width.large};
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding; 20px 0;
+  padding: 20px 0;
   border-bottom: 1px solid ${({ theme }) => theme.color.background};
 
   .logo {
@@ -118,7 +118,7 @@ const HeaderStyled = styled.header`
           font-weight: 600;
           text-decoration: none;
           display: flex;
-          aliign-items: center;
+          align-items: center;
           line-height: 1;
           background: none;
           border: none;

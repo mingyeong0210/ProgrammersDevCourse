@@ -1,21 +1,19 @@
-import styled from "styled-components";
-import { BookDetail } from "../../models/book.model";
-import InputText from "../common/InputText";
-import Button from "../common/Button";
 import { useState } from "react";
-import { addCart } from "../../api/carts.api";
-import { useAlert } from "../../hooks/useAlert";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { useAlert } from "../../hooks/useAlert";
 import { useBook } from "../../hooks/useBook";
+import { BookDetail } from "../../models/book.model";
+import Button from "../common/Button";
+import InputText from "../common/InputText";
 
 interface Props {
     book: BookDetail;
 }
 
 function AddToCart({ book }: Props) {
-    const showAlert = useAlert();
+    const { showAlert } = useAlert();
     const [quantity, setQuantity] = useState<number>(1);
-    // const [cartAdded, setCartAdded] = useState(false);
     const { addToCart, cartAdded } = useBook(book.id.toString());
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,18 +28,6 @@ function AddToCart({ book }: Props) {
         if(quantity === 1) return;
         setQuantity(quantity - 1);
     }
-
-    // const addToCart = () => {
-    //     addCart({
-    //         book_id: book.id,
-    //         quantity: quantity
-    //     }).then(() => {
-    //         setCartAdded(true);
-    //         setTimeout(() => {
-    //             setCartAdded(false);
-    //         }, 3000);
-    //     });
-    // }
 
     return (
         <AddToCartStyle $added={cartAdded}>

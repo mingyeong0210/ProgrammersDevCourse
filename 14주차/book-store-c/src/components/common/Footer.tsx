@@ -16,7 +16,7 @@ function Footer() {
 }
 
 const FooterStyled = styled.footer`
-    widht: 100%;
+    width: 100%;
     margin: 0 auto;
     max-width: ${({ theme }) => theme.layout.width.large};
     border-top: 1px solid ${({ theme }) => theme.color.background};

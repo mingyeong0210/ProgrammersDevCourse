@@ -5,5 +5,11 @@ export const useAlert = () => {
         window.alert(massage);
     }, []);
 
-    return showAlert;
+    const showConfirm = useCallback((message: string, onConfirm: () => void) => {
+        if (window.confirm(message)) {
+            onConfirm();
+        }
+    }, []);
+
+    return { showAlert, showConfirm };
 };
