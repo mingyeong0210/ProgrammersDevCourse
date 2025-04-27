@@ -12,81 +12,72 @@ import Cart from "./pages/Cart";
 import Order from "./pages/Order";
 import OrderList from "./pages/\bOrderList";
 
-const router = createBrowserRouter([
+const routerList = [
   {
     path: "/",
     element: (
-      <Layout>
-        <Home />
-      </Layout>
+      <Home />
     ),
-    errorElement: <Error />
   },
   {
     path: "/books",
     element: (
-      <Layout>
-        <Books />
-      </Layout>
+      <Books />
     ),
   },
   {
     path: "/signup",
     element: (
-      <Layout>
-        <Signup />
-      </Layout>
+      <Signup />
     ),
   },
   {
     path: "/reset",
     element: (
-      <Layout>
-        <ResetPassword />
-      </Layout>
+      <ResetPassword />
     ),
   },
   {
     path: "/login",
     element: (
-      <Layout>
-        <Login />
-      </Layout>
+      <Login />
     ),
   },
   {
     path: "/book/:bookId",
     element: (
-      <Layout>
-        <BookDetail />
-      </Layout>
+      <BookDetail />
     ),
   },
   {
     path: "/cart",
     element: (
-      <Layout>
-        <Cart />
-      </Layout>
+      <Cart />
     ),
   },
   {
     path: "/order",
     element: (
-      <Layout>
-        <Order />
-      </Layout>
+      <Order />
     ),
   },
   {
     path: "/orderlist",
     element: (
-      <Layout>
-        <OrderList />
-      </Layout>
+      <OrderList />
     ),
   },
-])
+];
+
+const router = createBrowserRouter(
+  routerList.map((item) => {
+    return {
+      ...item,
+      element: <Layout>{item.element}</Layout>,
+      errorElement: <Error />
+    };
+  })
+);
 
 function App() {
   return (
