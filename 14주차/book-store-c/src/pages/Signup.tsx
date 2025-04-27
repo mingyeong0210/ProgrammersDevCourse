@@ -1,11 +1,10 @@
-import styled from "styled-components";
-import Title from "../components/common/Title";
-import InputText from "../components/common/InputText";
-import Button from "../components/common/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 import { useForm } from "react-hook-form";
-import { signup } from "../api/auth.api";
-import { useAlert } from "../hooks/useAlert";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import Button from "../components/common/Button";
+import InputText from "../components/common/InputText";
+import Title from "../components/common/Title";
 
 export interface SignupProps {
     email: string;
@@ -13,14 +12,7 @@ export interface SignupProps {
 }
 
 function Signup() {
-    const navigate = useNavigate();
-    const { showAlert } = useAlert();
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
-
-    // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    //     event.preventDefault();
-    // };
+    const { userSignup } = useAuth();
 
     const { 
         register, 
@@ -29,11 +21,7 @@ function Signup() {
     } = useForm<SignupProps>();
 
     const onSubmit = (data: SignupProps) => {
-        signup(data).then((res) => {
-            // 성공
-            showAlert("회원가입이 완료되었습니다.");
-            navigate("/login");
-        })
+        userSignup(data);
     };
 
     return (
