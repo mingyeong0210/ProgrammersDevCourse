@@ -1,12 +1,14 @@
 import { styled } from "styled-components";
 import logo from "../../assets/images/logo.png";
-import { FaSignInAlt, FaRegUser } from 'react-icons/fa';
+import { FaSignInAlt, FaRegUser, FaUserCircle } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 import { Category } from "../../models/category.model";
 import { useEffect, useState } from "react";
 import { fetchCategory } from "../../api/category.api";
 import { useCategory } from "../../hooks/useCategory";
 import { useAuthStore } from "../../store/authStore";
+import Dropdown from "./Dropdown";
+import ThemeSwitcher from "../header/ThemeSwitcher";
 
 function Header() {
   const { category } = useCategory();
@@ -34,39 +36,47 @@ function Header() {
       </nav>
 
       <nav className="auth">
-        {
-          isloggedIn && (
-            <ul>
-              <li>
-                <Link to="/cart">장바구니</Link>
-              </li>
-              <li>
-                <Link to="/orderlist">주문내역</Link>
-              </li>
-              <li>
-                <button onClick={storeLogout}>로그아웃</button>
-              </li>
-            </ul>
-          )
-        }
-        {
-          !isloggedIn && (  
-            <ul>
-              <li>
-                <Link to="/login">
-                  <FaSignInAlt />
-                  로그인
-                </Link>
-              </li>
-              <li>
-                <Link to="/signup">
-                  <FaRegUser />
-                  회원가입
-                </Link>
-              </li> 
-            </ul>
-          )
-        }
+        <Dropdown toggleButton={<FaUserCircle />}>
+          <>
+            {
+            isloggedIn && (
+              <ul>
+                <li>
+                  <Link to="/cart">장바구니</Link>
+                </li>
+                <li>
+                  <Link to="/orderlist">주문내역</Link>
+                </li>
+                <li>
+                  <button onClick={storeLogout}>로그아웃</button>
+                </li>
+              </ul>
+            )
+          }
+          {
+            !isloggedIn && (  
+              <ul>
+                <li>
+                  <Link to="/login">
+                    <FaSignInAlt />
+                    로그인
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/signup">
+                    <FaRegUser />
+                    회원가입
+                  </Link>
+                </li> 
+              </ul>
+            )
+          }
+          {/* 테마스위처 스타일링은 각자 해보기 */}
+          <div className="themeSwitcher">
+            <ThemeSwitcher />
+          </div>
+          </>
+        </Dropdown>
       </nav>
     </HeaderStyled>
   );
@@ -111,13 +121,18 @@ const HeaderStyled = styled.header`
   .auth {
     ul {
       display: flex;
+      flex-direction: column;
       gap: 16px;
+      width: 100px;
+      
       li {
         a, button {
           font-size: 1rem;
           font-weight: 600;
           text-decoration: none;
           display: flex;
+          justify-content: center;
+          width: 100%;
           align-items: center;
           line-height: 1;
           background: none;
@@ -129,6 +144,12 @@ const HeaderStyled = styled.header`
           }
         }
       }
+    }
+    
+    .themeSwitcher {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 `;
