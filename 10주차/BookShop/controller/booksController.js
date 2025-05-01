@@ -14,6 +14,7 @@ const allBooks = (req, res) => {
 
     let sql = 'SELECT SQL_CALC_FOUND_ROWS *, (SELECT count(*) FROM likes WHERE liked_book_id=books.id) AS likes FROM books ';
     let values = [];
+
     if(category_id && news) {
         sql += 'WHERE category_id=? AND pub_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW()';
         values = [category_id];
@@ -28,44 +29,43 @@ const allBooks = (req, res) => {
 
     sql += ' LIMIT ? OFFSET ?';
     values.push(parseInt(limit), offset);
+
     conn.query(sql, values,
         (err, results) => {
             if (err) {
                 console.log(err);
                 // return res.status(StatusCodes.BAD_REQUEST).end();
             }
-            console.log(results);
-            if(results.length) {
-                results.map(function(result) {
-                    result.pubDate = result.pub_date;
-                    delete result.pub_date;
-                });
-                allBooksRes.books = results;
-            }
-            else
+            
+            if (results.length === 0) {
                 return res.status(StatusCodes.NOT_FOUND).end();
+            }
+
+            results.map(function(result) {
+                result.pubDate = result.pub_date;
+                delete result.pub_date;
+            });
+
+            allBooksRes.books = results;
+
+            conn.query('SELECT found_rows()',
+                (err, results) => {
+                    if (err) {
+                        console.log(err);
+                        return res.status(StatusCodes.BAD_REQUEST).end();
+                    }
+        
+                    let pagination = {};
+                    pagination.currentPage = parseInt(currentPage);
+                    pagination.totalCount = results[0]["found_rows()"];
+        
+                    allBooksRes.pagination = pagination;
+        
+                    return res.status(StatusCodes.OK).json(allBooksRes);
+                }
+            )
         }
     );
-
-    sql = 'SELECT found_rows()';
-    conn.query(sql,
-        (err, results) => {
-            if (err) {
-                console.log(err);
-                return res.status(StatusCodes.BAD_REQUEST).end();
-            }
-
-            let pagination = {};
-            pagination.currentPage = parseInt(currentPage);
-            pagination.totalCount = results[0]["found_rows()"];
-
-            allBooksRes.pagination = pagination;
-
-            return res.status(StatusCodes.OK).json(allBooksRes);
-        }
-    )
-
-
 };
 
 const bookDetail = (req, res) => {
