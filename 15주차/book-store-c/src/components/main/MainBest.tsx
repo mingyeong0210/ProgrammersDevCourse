@@ -20,6 +20,10 @@ const MainBestStyle = styled.div`
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 12px;
+
+    @media ${({ theme }) => `screen and ${theme.mediaQuery.mobile}`} {
+        grid-template-columns: repeat(2, 1fr);
+    }
 `;
 
 export default MainBest;
