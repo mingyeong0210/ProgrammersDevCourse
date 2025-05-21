@@ -10,6 +10,7 @@
 - Html/Css
 #### Backend
 - SpringBoot
+- Node.js
 - MySQL
 - Java
 <br>
